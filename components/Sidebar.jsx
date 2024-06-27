@@ -14,6 +14,7 @@ const Sidebar = ({ docs }) => {
   const pathName = usePathname();
   const [rootNodes, setRootNodes] = useState([]);
   const [nonRootNodesGrouped, setNonRootNodesGrouped] = useState({});
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     let matchedDocs = docs;
@@ -60,8 +61,14 @@ const Sidebar = ({ docs }) => {
   }, [pathName, docs]);
 
   return (
-    <nav className="lg:block my-10">
-      <ul>
+    <nav className="my-10 text-end mr-5">
+      <button
+        className="lg:hidden px-4 py-2 text-white bg-emerald-500 rounded-md"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? "Close Menu" : "Open Menu"}
+      </button>
+      <ul className={`lg:block ${menuOpen ? "block" : "hidden"}`}>
         <div className="relative mt-3 pl-2">
           <div className="absolute inset-x-0 top-0 bg-zinc-800/2.5 will-change-transform dark:bg-white/2.5"></div>
           <div className="absolute inset-y-0 left-2 w-px bg-zinc-900/10 dark:bg-white/5"></div>
@@ -73,6 +80,7 @@ const Sidebar = ({ docs }) => {
                   aria-current="page"
                   className="flex justify-between gap-2 py-1 pl-4 pr-3 text-sm text-zinc-900 transition dark:text-white"
                   href={`/docs/${rootNode.id}`}
+                  onClick={() => setMenuOpen(!menuOpen)}
                 >
                   <span className="truncate">{rootNode.title}</span>
                 </Link>
@@ -83,6 +91,7 @@ const Sidebar = ({ docs }) => {
                         <Link
                           className="flex justify-between gap-2 py-1 pl-7 pr-3 text-sm text-zinc-600 transition hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
                           href={`/docs/${rootNode.id}/${subRoot.id}`}
+                          onClick={() => setMenuOpen(!menuOpen)}
                         >
                           <span className="truncate">{subRoot.title}</span>
                         </Link>
