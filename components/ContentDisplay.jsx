@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Tag from "../components/Tag";
 import { getDocumentContent } from "../lib/doc";
+import Tag from "./Tag";
 const ContentDisplay = async ({ id }) => {
   const documentContent = await getDocumentContent(id);
 
